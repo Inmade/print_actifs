@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="project_journal_items_id">
+                <t t-foreach="docs" t-as="o">
+                    <div class="header">
+                        <p style="font-size:20px;"><b>Investissements, Liste par Compte</b><br/>Date: <b><span t-esc="o.date_at" /> </b></p>
+                    </div>
+                    <div class="article">
+                        <div class="page" style="font-family:'Eurostile'!important;">
+                             <div class="oe_structure"/>
+                            <style>
+                               table th{
+                                border-bottom:1px solid black;
+                                padding:5px;
+                                text-align:center;
+                                }
+                                .values{
+                                    border:5px solid black;
+                                 border-collapse: collapse;
+                                padding:5px;
+                                text-align:center;
+                                }
+                            </style>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th scope="col">Code invest</th>
+                                  <th scope="col">Description</th>
+                                  <th scope="col">Achat</th>
+                                  <th scope="col">T</th>
+                                  <th scope="col">durée</th>
+                                  <th scope="col">Total</th>
+                                  <th scope="col">Am.Ant</th>
+                                  <th scope="col">Am.Ext</th>
+                                  <th scope="col">Amorti</th>
+                                  <th scope="col">v.Résid.</th>
+                                </tr>
+                              </thead>
+                                <tbody>
+                                    <t t-foreach="o.asset_ids" t-as="asset_ids"> <br/>
+                                        <tr>
+                                          <td scope="row">
+                                              <b><span t-field="asset_ids.category_id"/></b><br/>
+                                          </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="values">
+                                            <td>
+                                                 <span t-field="asset_ids.code"/>
+                                            </td>
+                                            <td style="width:10%">
+                                                 <span t-field="asset_ids.name"/>
+                                            </td>
+                                            <td>
+                                                 <span t-field="asset_ids.date"/>
+                                            </td>
+                                            <td class="text-center" width="5%">
+                                                 <span t-field="asset_ids.method"/>
+                                            </td>
+                                             <td>
+                                                 <t t-set="addition" t-value="0"/>
+                                                  <t t-foreach="asset_ids.depreciation_line_ids" t-as="amortissement">
+                                                    <t t-set="addition" t-value="amortissement.sequence*asset_ids.method_period"/>
+                                                  </t>
+                                                  <span t-esc="addition"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="asset_ids.value"/>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="asset_ids.depreciation_line_ids" t-as="amortissement">
+                                                    <t t-if="o.date_at &gt;= amortissement.depreciation_date">
+                                                        <t t-if="amortissement_index &gt;= 0">
+                                                            <t t-if="amortissement_index == 0">
+                                                                <p>0</p>
+                                                            </t>
+                                                            <t t-elif="amortissement_index ==1">
+                                                                <t t-foreach="asset_ids.depreciation_line_ids[0]" t-as="amortissement_previous">
+                                                                <span t-esc="amortissement_previous.amount"></span><br/>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">
+                                                                 <span t-esc="amortissement.amount"></span><br/>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                             </td>
+                                            <td>
+                                                <t t-foreach="asset_ids.depreciation_line_ids" t-as="amortissement">
+                                                <t t-if="o.date_at &gt;= amortissement.depreciation_date">
+                                                 <span t-esc="round(amortissement.amount,2)"/><br/>
+                                                </t>
+                                                </t>
+                                             </td>
+                                            <td>
+                                                <t t-foreach="asset_ids.depreciation_line_ids" t-as="amortissement">
+                                                <t t-if="o.date_at &gt;= amortissement.depreciation_date">
+                                                 <t t-set="amAnt" t-value="0"/>
+                                                 <span t-esc="round(amortissement.depreciated_value,2)"/><br/>
+                                                </t>
+                                                </t>
+                                             </td>
+                                            <td>
+                                                <t t-foreach="asset_ids.depreciation_line_ids" t-as="amortissement">
+                                                  <t t-if="o.date_at &gt;= amortissement.depreciation_date">
+                                                    <span t-esc="round(amortissement.remaining_value,2)"/><br/>
+                                                  </t>
+                                                 </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+        </template>
+    </data>
+</odoo>

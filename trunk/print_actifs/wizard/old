@@ -1,0 +1,31 @@
+
+""""
+
+class printActifsWizard(models.TransientModel):
+    _name = "print.actif.wizard"
+
+    date_print = fields.Date(string="Date")
+
+
+
+    def date_to_string(self):
+        date_string = str(self.date_print)
+        return date_string
+
+    @api.multi
+    def print_pdf(self):
+        self.ensure_one()
+        report_type = 'qweb-pdf'
+        return self._export(report_type)
+
+    def _export(self, report_type):
+        model = self.env['print.actif.wizard']
+        report = model.create(self._prepare_report())
+        return report.date_print
+        #return self.env.ref('print_actifs.print_journal_items_report').report_action(self)
+
+    def _prepare_report(self):
+        self.ensure_one()
+        return {
+            'date_print': self.date_print,
+        }""""

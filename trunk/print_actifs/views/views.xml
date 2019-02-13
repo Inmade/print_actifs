@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+
+
+      <menuitem
+        parent="account_financial_report.menu_oca_reports"
+        action="action_asset_report_wizard"
+        id="menu_asset_wizard"
+        sequence="60"
+        />
+
+      <report
+            id="print_journal_items_report"
+            model="asset.report.wizard"
+            menu="True"
+            report_type="qweb-pdf"
+            string="Actifs"
+            name="print_actifs.project_journal_items_id"
+            file="print_actifs.project_journal_items_id"
+         />
+
+  </data>
+</odoo>

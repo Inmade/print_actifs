@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="asset_report_wizard_view" model="ir.ui.view">
+        <field name="name">Print assets</field>
+        <field name="model">asset.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="date_at"/><br />
+                <footer>
+                    <button name="button_export_html" string="View"
+                            type="object" default_focus="1" class="oe_highlight"/>
+                    or
+                    <button name="button_export_pdf" string="Export PDF" type="object"/>
+                    or
+                    <button name="button_export_xlsx" string="Export XLSX" type="object"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_asset_report_wizard"
+                name="Asset Report"
+                res_model="asset.report.wizard"
+                view_type="form"
+                view_mode="form"
+                view_id="asset_report_wizard_view"
+                target="new" />
+
+        
+
+</odoo>

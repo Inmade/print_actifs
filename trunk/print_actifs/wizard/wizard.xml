@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="validate_account_move_view" model="ir.ui.view">
+            <field name="name">Post Journal Entries</field>
+            <field name="model">print.actif.wizard</field>
+            <field name="arch" type="xml">
+                <field name="actifs_date"/><br />
+                <footer>
+                <button string="Imprimer" name="print_timesheet" type="object"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </field>
+        </record>
+    </data>
+</odoo>
